@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+int main() {
+  int a[100], n, i, maxx, minn, s = 0, nr = 0, nr1 = 0, nr2 = 0, nr3 = 0, il;
+  float t;
+  cout << "Inroduceti nr. de participanti: ";
+  cin >> n;
+  for (i = 1; i <= n; i++) {
+    cout << "Introduceti inaltimea sportivului: " << i << " = ";
+    cin >> a[i];
+  }
+  //Valoarea minim si maxim
+  maxx = a[1];
+  minn = a[1];
+  for (i = 1; i <= n; i++) {
+    if (a[i] < minn)
+      minn = a[i];
+    if (a[i] > maxx)
+      maxx = a[i];
+  }
+  for (i = 1; i <= n; i++)
+  //Calculati suma
+  {
+    s = s + a[i];
+  }
+  t = s / n;
+  //Valori mai mici,mai mari,sau egale
+  for (i = 1; i <= n; i++)
+    if (a[i] < 170)
+      nr1++;
+    else
+  if (a[i] > 170)
+    nr2++;
+  else
+    nr3++;
+  cout << "Inaltimea minima este = " << minn << endl;
+  cout << "Inaltimea maxima este = " << maxx << endl;
+  cout << "Decalajul valorilor este = " << maxx - minn << endl;
+  cout << "Media inaltimii sportivilor = " << t << endl;
+  cout << "Inaltimi mai mici ca 170 sunt " << nr1 << endl;
+  cout << "Inaltimi mai mari ca 170 sunt " << nr2 << endl;
+  cout << "Inaltimi egale cu 170 sunt " << nr3 << endl;
+  il = 170;
+  for (i = 1; i <= n; i++)
+    if (a[i] >= 170) {
+      nr++;
+    }
+  if (nr == 0)
+    cout << "Niciun elev nu poate participa";
+  else
+    cout << "Numarul de sportivi cu inaltimeain limitele indicate: " << nr;
+  return 0;
+}
+
