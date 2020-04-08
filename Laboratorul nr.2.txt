@@ -1,0 +1,69 @@
+#include <iostream>
+#include <conio.h>
+#include <cstdlib>
+
+using namespace std;
+bool palindrom(int numar);
+int main() {
+  int key,numarInitial,numarInvers,nr =0;
+  do {
+    system("cls");
+    cout << "1. De verificat daca numarul satisface conditia" << endl;
+    cout << "2. De afisat toate numerele din intervalul[a,b] care satisface conditia " << endl;
+    cout << "3. De afisat primele n numere care satisface conditia" << endl;
+    cout << "4. De afisat toate numerele din intervalul [a,b] care satisfac II variante " << endl;
+    cout << "5. De afisat valoarea maxima care satisface conditiei" << endl;
+    cout << "0. Exit" << endl;
+    cout << "\t\t Selecteaza Optiunea ==> ";
+    cin >> key;
+
+    switch (key) {
+    case 1:
+      system("cls");
+      {
+    int nr;
+    cin >> nr;
+    if(numarPalindrom(nr) == true)
+        cout << "Numarul este palindrom";
+    else
+        cout << "Numarul NU este palindrom";
+    return 0;
+}
+      getch();
+      break;
+    case 2:
+      system("cls");
+
+      getch();
+      break;
+    case 3:
+      system("cls");
+
+      getch();
+      break;
+    case 4:
+      system("cls");
+      getch();
+      break;
+    case 5:
+      system("cls");
+      getch();
+      break;
+    }
+  }
+  while (key != 0);
+  return 0;
+}
+
+int numarInitial, numarInvers = 0;
+    numarInitial = numar;
+    while(numar)
+    {
+        int c = numar % 10;
+        numarInvers = numarInvers * 10 + c;
+        numar = numar / 10;
+    }
+    if(numarInitial == numarInvers)
+        return true;
+    else
+        return false;
