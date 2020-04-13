@@ -2,61 +2,108 @@
 #include <conio.h>
 #include <cstdlib>
 
-using namespace std;
-bool palindrom(int numar);
-int main() {
-  int key,n,invers=0,initial=0;
-  do {
-    system("cls");
-    cout << "1. De verificat daca numarul satisface conditia" << endl;
-    cout << "2. De afisat toate numerele din intervalul[a,b] care satisface conditia " << endl;
-    cout << "3. De afisat primele n numere care satisface conditia" << endl;
-    cout << "4. De afisat toate numerele din intervalul [a,b] care satisfac II variante " << endl;
-    cout << "5. De afisat valoarea maxima care satisface conditiei" << endl;
-    cout << "0. Exit" << endl;
-    cout << "\t\t Selecteaza Optiunea ==> ";
-    cin >> key;
 
-    switch (key) {
-    case 1:
-      system("cls");
-     cout << "Introduceti numarul ce trebuie varificat = ";
-      cin >> n;
-      if (palindrom(n)) cout << "Numarul " << n << " este numar palindrom" << endl;
-      else
-        cout << "Numarul " << n << " nu este numar palindrom" << endl;
-    return 0;
-      getch();
-      break;
-    case 2:
-      system("cls");
-      getch();
-      break;
-    case 3:
-      system("cls");
-      getch();
-      break;
-    case 4:
-      system("cls");
-      getch();
-      break;
-    case 5:
-      system("cls");
-      getch();
-      break;
-    }
-  }
-  while (key != 0);
-  return 0;
+using namespace std;
+int palindrom(int numar);
+
+int main() {
+int key, n, a, b,nr,i;
+int cont;
+do {
+system("cls");
+cout << "1. De verificat daca numarul satisface conditia" << endl;
+cout << "2. De afisat toate numerele din intervalul[a,b] care satisface conditia " << endl;
+cout << "3. De afisat primele n numere care satisface conditia" << endl;
+cout << "4. De afisat toate numerele din intervalul [a,b] care satisfac II variante " << endl;
+cout << "5. De afisat valoarea maxima care satisface conditiei" << endl;
+cout << "0. Exit" << endl;
+cout << "\t\t Selecteaza Optiunea ==> ";
+cin >> key;
+
+switch (key) {
+case 1:
+  system("cls");
+ cout << "Introduceti numarul ce trebuie varificat = ";
+  cin >> n;
+  if (palindrom(n)) cout << "Numarul " << n << " este numar palindrom" << endl;
+  else
+    cout << "Numarul " << n << " nu este numar palindrom" << endl;
+  getch();
+  break;
+case 2:
+  system("cls");
+  cout<<"Indicati inceputul intervalului = ";
+  cin>>a;
+  cout<<"Indicati sfirsitul intervalului = ";
+  cin>>b;
+  cout<<"Toate numerele palindrom din intervalul ["<<a<<", "<<b<<"] sunt:"<<endl;
+  cont = 0;
+  for (int i=a; i<=b; i++)
+  	if(palindrom(i)){
+  		cout<<" "<<i;
+  		cont ++;
+	  }
+	  cout<<endl;
+	if(cont > 0) cout<<"In intervalul indicat sunt "<<cont<< " numere palindrom"<<endl;
+				else
+				cout<<"Interval gresit";
+  getch();
+  break;
+case 3:
+  system("cls");
+  cout << "Cate cifre doriti sa afisam =";
+      cin >> nr;
+      i = 0;
+      cont = 0;
+      while ((cont < nr) && (i < INT_MAX)) {
+        if (palindrom(i)) {
+          cout << i << " ";
+          cont++;
+        }
+        i++;
+      }
+  getch();
+  break;
+case 4:
+  system("cls");
+  cout << "Enter start interval: ";
+      cin >> a;
+
+      cout << "Enter stop interval: ";
+      cin >> b;
+
+      if (!palindrom(a)) {
+        a++;
+      }
+
+      for (int i = a; i <= b; i += 10) {
+        cout << i << ' ';
+      }
+  getch();
+  break;
+case 5:
+  system("cls");
+
+  getch();
+  break;
+}
+}
+while (key != 0);
+return 0;
 }
 
-int palindrom(int n)
-    while(n)
-    {
-        invers=invers*10+n%10;
-        n=n/10;
-    }
-    if(initial==invers)
-    return true;
-    else
-    return false;
+int palindrom(int n){
+int initial;
+int inv = 0;
+initial = n;
+while(n>0)
+{
+inv=inv*10+n%10;
+n=n/10;
+}
+
+if(initial == inv)
+return 1;
+else
+return 0;
+}
