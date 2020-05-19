@@ -1,0 +1,238 @@
+#include <iostream>
+
+#include <iomanip>
+
+#include <conio.h>
+
+#include <stdlib.h>
+
+#include <string.h>
+
+#include <stdio.h>
+
+#include <string>
+
+#include <fstream>
+
+#include <sstream>
+
+#include <algorithm>
+
+#define NMAX 101
+
+using namespace std;
+int Nr_Cuvinte(char fraza[]);
+int CuvinteLungimeMic6(char fraza[]);
+int CuvinteLungimeMaiMari6();
+void Sters_Cuvintele(char fraza[]);
+void Sters_Cuvintele2(char fraza[]);
+void Citire();
+void Fisier_LungimeaMaiMare6(char fraza[]);
+
+using namespace std;
+char fraza1[NMAX];
+
+int main() {
+  FILE * f;
+  char c[NMAX]; //variabila in care se contine fraza modificata
+  int optiune, nru, op;
+  int nr;
+  int F1;
+  char fraza[NMAX] = "Odata cu aparitia calculatorului viata sa schimbat.";
+  do {
+    system("cls");
+    int b = 6;
+
+    cout << "\t\t\t\t\t\t\t\t Proiect realizat de Lungu Andrei" << endl;
+    cout << "\n 1. Intr-o fraza de determinat numarul de cuvinte";
+    cout << "\n 2. De determinat cuvintele dintr-o fraza cu lungimea mai mare de 6 litere";
+    cout << "\n 3. De sters cuvintele dintr-o fraza care au lungimea de 6 litere.";
+    cout << "\n 4. Intr-un fisier text de determinat numarul de cuvinte.";
+    cout << "\n 5. De inscris in alt fisier text cuvintele cu lungimea mai mare ca 6.";
+    cout << "\n 6. De sters cuvintele dintr-un fisier text, cuvinte cu lungimea mai mare ca 6.";
+    cout << "\n 0. Stop";
+    cout << "\n\t Alege (de la 0 la 6) -> ";
+    cin >> optiune;
+    switch (optiune) {
+
+    case 1:
+      system("cls");
+      puts("Fraza initiala");
+      puts(fraza);
+      cout << "In total sint " << Nr_Cuvinte(fraza) << " cuvinte. ";
+      cout << "\n\n Apasa Enter pentru a reveni la meniul initial";
+      getch();
+      break;
+
+    case 2:
+      //gets(fraza);
+      system("cls");
+      puts("Fraza initiala");
+      puts(fraza);
+      cout << "\n Fisierul contine " << CuvinteLungimeMic6(fraza) << " cuvinte de lungime 6";
+      cout << "\n\n Apasa Enter pentru a reveni la meniul initial";
+      getch();
+      break;
+
+    case 3:
+      system("cls");
+      puts("Fraza initiala");
+      puts(fraza);
+      cout << "\n Fraza modificata la stergerea cuvintelor cu litere majuscule: \n ";
+      Sters_Cuvintele(fraza);
+      puts(fraza);
+      cout << "\n\nApasa Enter pentru a reveni la meniul initial";
+      _getch();
+      break;
+
+    case 4:
+      system("cls");
+      cout << "Intr-un fisier text de determinat numarul de cuvinte.\n";
+      Citire();
+      nr = Nr_Cuvinte(fraza1);
+      if (nr >= 0)
+        cout << "In fisier sunt " << nr << " cuvinte.";
+      else
+        cout << "Nu-s cuvinte";
+      cout << "\n\nApasa Enter pentru a reveni la meniul initial";
+      getch();
+      system("cls");
+      break;
+
+    case 5:
+      system("cls");
+      cout << "De inscris in alt fisier text cuvintele cu lungimea mai mare ca 6.\n";
+      Citire();
+      Fisier_LungimeaMaiMare6(fraza1);
+      cout << "\n\nApasa Enter pentru a reveni la meniul initial";
+      getch();
+      system("cls");
+      break;
+
+    case 6:
+      system("cls");
+      cout << "De sters cuvintele dintr-un fisier text, cuvinte cu lungimea mai mare ca 6.\n";
+      Citire();
+      Sters_Cuvintele2(fraza1);
+      f = fopen("Fraza.txt", "w");
+      fputs(fraza1, f);
+      fclose(f);
+      cout << "\n\nApasa Enter pentru a reveni la meniul initial";
+      getch();
+      system("cls");
+      break;
+
+    case 7:
+      break;
+
+    }
+
+  } while (optiune);
+
+  return 1;
+}
+
+int Nr_Cuvinte(char fraza[]) {
+  int n = 0;
+  char * cuvint, copia[81];
+  strcpy(copia, fraza);
+  if ((cuvint = strtok(copia, " \n,.//?!-+:")) == NULL)
+    return 0;
+  n = 1;
+  while ((cuvint = strtok(NULL, " \n,.//?!-+")) != NULL)
+    n++;
+  return n;
+}
+
+int CuvinteLungimeMic6(char fraza[]) {
+  char copia[NMAX];
+  int n = 0;
+  char * cuvint;
+  strcpy(copia, fraza);
+  if ((cuvint = strtok(copia, " ,.:;\n")) == NULL) return 0;
+  if (strlen(cuvint) > 6) {
+    n = 1;
+    printf("%-16s", cuvint);
+  }
+  while ((cuvint = strtok(NULL, " ,.:;\n")) != NULL)
+    if (strlen(cuvint) > 6) {
+      n++;
+      printf("%-16s", cuvint);
+    }
+  return n;
+}
+
+int CuvinteLungimeMaiMari6() {
+  FILE * f;
+  char fraza[NMAX];
+  int n = 0;
+  f = fopen("olimp.txt", "r");
+  while (fgets(fraza, NMAX - 1, f) != NULL)
+    n += CuvinteLungimeMic6(fraza);
+  return n;
+}
+
+void Sters_Cuvintele(char fraza[]) {
+  string temp;
+
+  ifstream text("fraza.txt");
+  text >> temp;
+  while (text and!temp.empty()) {
+    if (temp.length() >= 6) {
+      cout << temp << endl;
+    }
+    text >> temp;
+  }
+  text.close();
+}
+
+void Citire() {
+  FILE * f = fopen("Fraza.txt", "r");
+  char mystring[81];
+
+  if (f == NULL) cout << "Eroare";
+  else {
+    if (fgets(fraza1, 81, f) != NULL)
+      puts(fraza1);
+    fclose(f);
+  }
+}
+
+void Fisier_LungimeaMaiMare6(char fraza[]) {
+  string temp;
+
+  ifstream text("fraza.txt");
+  text >> temp;
+  while (text and!temp.empty()) {
+    ofstream Result("Result.txt", ios::app);
+    if (temp.length() >= 6) {
+      Result << temp << " ";
+    }
+    text >> temp;
+    Result.close();
+  }
+  text.close();
+  cout << "Datele au fost inscrise in fisier!";
+}
+
+void Sters_Cuvintele2(char fraza[]) {
+  string temp;
+
+  ifstream text("Result.txt");
+  text >> temp;
+
+  ofstream Result("Result.txt");
+  Result << " ";
+  Result.close();
+
+  ofstream Result2("Result.txt", ios::app);
+  if (temp.length() >= 6) {
+    {
+      Result << temp << " ";
+    }
+    text >> temp;
+    Result.close();
+  }
+  text.close();
+  cout << "Datele au fost sterse din fisier!";
+}
